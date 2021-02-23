@@ -22,6 +22,9 @@ class User_Category(models.Model):
         user = models.ForeignKey(User, to_field='id', on_delete= models.CASCADE)
         category = models.ForeignKey('Category', to_field='id',on_delete= models.CASCADE)
 '''
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+
 
 class Category(models.Model):
     name = models.CharField(max_length=30,default=True)
@@ -29,3 +32,8 @@ class Category(models.Model):
                               default='categories/pic01.jpg',
                               processors=[ResizeToFill(506,295)])
     user = models.ForeignKey(User,to_field = 'id',on_delete=models.CASCADE,default= 2)
+
+
+@receiver(pre_delete, sender=Category)
+def Category_delete(instance, **kwargs):
+    instance.pic.delete(False)

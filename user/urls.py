@@ -10,4 +10,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('list_categories', views.list_categories, name='list_categories'),
     path('add_categories', views.add_categories, name='add_categories'),
+    path('update_categories', views.update_categories, name='update_categories'),
+    path('delete_categories', views.delete_categories, name='delete_categories'),
 ]

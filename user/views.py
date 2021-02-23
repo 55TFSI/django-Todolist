@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
-from todos.models import Category
+from todos.models import Category, Category_delete
 from user.forms import Add_Category_Form
 
 
@@ -19,6 +20,7 @@ def list_categories(request):
     context = {'categories':categories, 'type':'list_categories'}
     return render(request, 'userbase.html',context)
 
+@login_required
 def add_categories(request):
     if request.method == 'GET':
         # return a form for user
@@ -40,3 +42,22 @@ def add_categories(request):
             return render(request,'forms.html',{'form':form,'error':error,'type':'add_category'})
 
         return redirect('/user/list_categories')
+
+
+@login_required
+def update_categories(request):
+
+    return 0
+
+
+
+
+@login_required
+def delete_categories(request):
+    category_id = request.GET.get('category_id',None)
+    category = get_object_or_404(Category,pk = category_id)
+
+    Category_delete(category)
+    category.delete()
+
+    return redirect('/user/list_categories')
