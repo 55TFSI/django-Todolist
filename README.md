@@ -1,6 +1,7 @@
 # django-Todolist
-This a simple web practice using HTML5/CSS + Django python + Sqlite
-https://github.com/datamoneycar/django-Todolist/blob/master/screenshot/1.pngs 
+This a simple web practice using HTML5/CSS + Django python + Sqlite.
+![1](screenshot/1.pngs?raw=true)
+
 todos show as card
 Todos:
   1.  Add diary summary function for users
