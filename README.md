@@ -1,6 +1,6 @@
 # django-Todolist
 This a simple web practice using HTML5/CSS + Django python + Sqlite.
-![1](screenshot/1.pngs?raw=true)
+![1](screenshot/1.png)
 
 todos show as card
 Todos:
