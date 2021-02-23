@@ -120,6 +120,35 @@
                                             </div>
 										</form>
                                         {% endif %}
+
+                                         <!-- update catrgory form -->
+                                        {% if type == "update_category" %}
+										<h3 class="major">Update Category</h3>
+										<form action="/user/update_categories" method="POST" enctype="multipart/form-data">
+                                            <div class="row gtr-uniform">
+                                                {% csrf_token %}
+                                                {{ form.non_field_errors }}
+                                                <div class="col-6 col-12-xsmall">
+                                                {{ form.name.errors }}
+                                                <label for="{{ form.name.id_for_label }}">name:</label>
+                                                {{ form.name }}
+                                                </div>
+
+                                                <div class="col-6 col-12-xsmall">
+                                                {{ form.pic.errors }}
+                                                <label for="{{ form.pic.id_for_label }}">pic:</label>
+                                                {{ form.pic }}
+                                                </div>
+
+                                                <div class="col-6 col-12-xsmall">
+                                                 <h3 class="major"></h3>
+                                                    <ul class="actions">
+                                                        <li><input type="submit" value="Update" class="button primary" /></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+										</form>
+                                        {% endif %}
 									</section>
 								</div>
 							</div>
