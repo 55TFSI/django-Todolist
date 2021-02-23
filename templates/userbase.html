@@ -57,7 +57,7 @@
 						</header>
 
 						<!-- Content -->
-                        {% if type == "add_category"%}
+                        {% if type == "list_categories"%}
 							<div class="wrapper">
 								<div class="inner">
                                     <h3 class="major">Buttons &nbsp;&nbsp;&nbsp;&nbsp;
@@ -66,7 +66,7 @@
                                     <section class="features">
                                         {% for categories in categories %}
                                         <article>
-                                            <a href="#" class="image"><img src={{categories.pic}} alt="" /></a>
+                                            <a href="#" class="image"> <img src= "{{MEDIA_URL}}{{categories.pic}}" /></a>
                                             <h1 class="major">{{categories.name}}&nbsp;&nbsp;
                                                 <a href="/todos/update_todo?todo_id={{todo.id}}" class="fas fa-edit"></a>&nbsp;
                                                 <a href="/todos/delete_todo?todo_id={{todo.id}}" class="fas fa-trash-alt"></a>

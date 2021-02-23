@@ -58,7 +58,7 @@
                                         <section class="features">
                                         {% for category in all %}
                                         <article>
-                                            <a href="#" class="image"><img src={{category.pic_url}} alt="" /></a>
+                                            <a href="#" class="image"><img src={{MEDIA_URL}}{{category.pic_url}} alt="" /></a>
                                             <h1 class="major">{{category.name}}
                                              <span>
                                                 <a href="/todos/add_todo" class="fas fa-plus"></a>&nbsp;

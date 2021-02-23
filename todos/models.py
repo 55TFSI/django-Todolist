@@ -1,7 +1,9 @@
 from django.contrib import auth
 from django.db import models
 from django.contrib.auth.models import User
-
+from PIL import Image
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 
 class Todo(models.Model):
@@ -23,5 +25,7 @@ class User_Category(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=30,default=True)
-    pic = models.CharField(max_length= 100,default='/static/images/pic04.jpg')
+    pic = ProcessedImageField(upload_to='categorypics',
+                              default='categories/pic01.jpg',
+                              processors=[ResizeToFill(506,295)])
     user = models.ForeignKey(User,to_field = 'id',on_delete=models.CASCADE,default= 2)

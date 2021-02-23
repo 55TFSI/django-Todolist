@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from todos.models import Category
@@ -23,8 +23,20 @@ def add_categories(request):
     if request.method == 'GET':
         # return a form for user
         form = Add_Category_Form()
-        # get user_created_categories
-
+        # get user_created_categories and return a for users form to fill
         return render(request, 'forms.html', {'form': form, 'type': 'add_category'})
+    # post method from form html
+    else:
+        user = request.user
+        #get infos from form
+        form = Add_Category_Form(request.POST)
 
-    return render(request, 'userbase.html')
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            pic = request.FILES.get('pic')
+            Category.objects.create(name = name, pic = pic, user = user)
+        else:
+            error = form.errors
+            return render(request,'forms.html',{'form':form,'error':error,'type':'add_category'})
+
+        return redirect('/user/list_categories')

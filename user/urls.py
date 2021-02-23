@@ -1,4 +1,8 @@
+from django.conf.urls import url
 from django.urls import path
+from django.views.static import serve
+
+from todoApp.settings import MEDIA_ROOT
 from . import views
 
 app_name='user'

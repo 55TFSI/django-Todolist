@@ -95,18 +95,18 @@
 
                                         {% if type == "add_category" %}
 										<h3 class="major">Add A Category</h3>
-										<form action="/user/add_categories" method="POST">
+										<form action="/user/add_categories" method="POST" enctype="multipart/form-data">
                                             <div class="row gtr-uniform">
                                                 {% csrf_token %}
                                                 {{ form.non_field_errors }}
                                                 <div class="col-6 col-12-xsmall">
-                                                {{ form.subject.errors }}
+                                                {{ form.name.errors }}
                                                 <label for="{{ form.name.id_for_label }}">name:</label>
                                                 {{ form.name }}
                                                 </div>
 
                                                 <div class="col-6 col-12-xsmall">
-                                                {{ form.subject.errors }}
+                                                {{ form.pic.errors }}
                                                 <label for="{{ form.pic.id_for_label }}">pic:</label>
                                                 {{ form.pic }}
                                                 </div>
