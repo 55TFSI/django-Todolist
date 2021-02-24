@@ -8,7 +8,8 @@ todos show as cards
 Todos:
   1.  Add diary summary function for users
   2.  Category update delete add (√)
-  3.  data analysis by time
+  3.  Add quotes for users(√)
+  4.  data analysis by time
 
 
 templates: desined by https://html5up.net/
