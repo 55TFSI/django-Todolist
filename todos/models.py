@@ -29,7 +29,7 @@ from django.dispatch.dispatcher import receiver
 class Category(models.Model):
     name = models.CharField(max_length=30,default=True)
     pic = ProcessedImageField(upload_to='categorypics',
-                              default='categories/pic01.jpg',
+                              default='categorypics/pic01.jpg',
                               processors=[ResizeToFill(506,295)])
 
     user = models.ForeignKey(User,to_field = 'id',on_delete=models.CASCADE,default= 2)

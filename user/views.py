@@ -28,15 +28,19 @@ def add_categories(request):
         # get user_created_categories and return a for users form to fill
         return render(request, 'forms.html', {'form': form, 'type': 'add_category'})
     # post method from form html
+
     else:
         user = request.user
         #get infos from form
-        form = Add_Category_Form(request.POST)
+        form = Add_Category_Form(request.POST,request.FILES)
 
         if form.is_valid():
             name = form.cleaned_data['name']
             pic = request.FILES.get('pic')
-            Category.objects.create(name = name, pic = pic, user = user)
+            if not pic:
+                Category.objects.create(name=name,user=user).save()
+            else:
+                Category.objects.create(name = name, pic = pic, user = user).save()
         else:
             error = form.errors
             return render(request,'forms.html',{'form':form,'error':error,'type':'add_category'})
@@ -89,7 +93,10 @@ def delete_categories(request):
     category_id = request.GET.get('category_id',None)
     category = get_object_or_404(Category,pk = category_id)
 
-    Category_delete(category)
-    category.delete()
+    if category.pic.name == 'categorypics/pic01.jpg':
+        category.delete()
+    else:
+        Category_delete(category)
+        category.delete()
 
     return redirect('/user/list_categories')
