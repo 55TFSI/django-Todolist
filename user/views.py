@@ -1,9 +1,11 @@
+from markdown  import markdown
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from todos.models import Category, Category_delete
-from user.forms import Add_Category_Form, Update_Category_Form
+from user.forms import Add_Category_Form, Update_Category_Form, Article_form
+from user.models import Article
 
 
 def home(request):
@@ -100,3 +102,60 @@ def delete_categories(request):
         category.delete()
 
     return redirect('/user/list_categories')
+
+@login_required
+def list_articles(request):
+
+    user = request.user
+
+    articles = Article.objects.filter(user = user)
+
+    context = {'type': 'list_articles','Articles':articles}
+
+    return render(request, 'userbase.html', context)
+
+@login_required
+def show_article_detail(request):
+
+    article_id = request.GET.get('id')
+    article = get_object_or_404(Article,pk=article_id)
+    article.content = markdown(article.content,
+                            extensions=[
+                            # 包含 缩写、表格等常用扩展
+                            'markdown.extensions.extra',
+                            # 语法高亮扩展
+                            'markdown.extensions.codehilite',
+                            ])
+
+    context = {'article':article}
+
+    return render(request, 'article.html', context)
+
+@login_required
+def add_articles(request):
+    if request.method == 'GET':
+        # return a form for user
+        form = Article_form()
+        # get user_created_categories and return a for users form to fill
+        return render(request, 'articleform.html', {'form': form, 'type': 'add_articles'})
+    # post method from form html
+
+    else:
+        user = request.user
+        #get infos from form
+        form = Article_form(request.POST,request.FILES)
+
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            thumbnail = request.FILES.get('thumbnail')
+            description = form.cleaned_data['description']
+            content = form.cleaned_data['content']
+            if not thumbnail:
+                Article.objects.create(title=title,description=description,content =content,user= user).save()
+            else:
+                Article.objects.create(title=title,description=description,content =content,thumbnail=thumbnail,user =user).save()
+        else:
+            error = form.errors
+            return render(request,'articleform.html',{'form':form,'error':error,'type':'add_articles'})
+
+        return redirect('/user/list_articles')

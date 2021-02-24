@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic - Solid State by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/static/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/index">Home</a></h1>
+					</header>
+
+				<!-- Menu -->
+
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+                                    <section>
+                                        <!-- form -->
+                                        {% if type == "add_articles" %}
+										<h3 class="major">Add a article</h3>
+										<form action="/user/add_articles" method="POST", enctype="multipart/form-data">
+                                            <div class="row gtr-uniform">
+                                                {% csrf_token %}
+                                                {{ form.non_field_errors }}
+                                                <div class="col-6 col-12-xsmall">
+                                                {{ form.title.errors }}
+                                                <label for="{{ form.title.id_for_label }}">title:</label>
+                                                {{ form.title }}
+                                                </div>
+                                                <div class="col-6 col-12-xsmall">
+                                                {{ form.non_field_errors }}
+                                                <label for="{{ form.description.id_for_label }}">description:</label>
+                                                {{ form.description }}
+                                                 {{ form.description.errors }}
+                                                </div>
+
+                                                <div class="col-6 col-12-xsmall">
+                                                {{ form.thumbnail.errors }}
+                                                <label for="{{ form.thumbnail.id_for_label }}">thumbnail:</label>
+                                                {{ form.thumbnail }}
+                                                </div>
+
+                                                <div class="col-6 col-12">
+                                                {{ form.non_field_errors.errors }}
+                                                <label for="{{ form.content.id_for_label }}">content:</label>
+                                                {{ form.content }}
+                                                {{form.content.errors}}
+                                                </div>
+                                                <div class="col-6 col-12-xsmall">
+                                                    <h3 class="major"></h3>
+                                                    <input type="submit" value="Add" class="primary" />
+                                                </div>
+                                            </div>
+                                        </form>
+                                        {% endif %}
+
+									</section>
+								</div>
+							</div>
+
+					</section>
+			</div>
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/static/assets/js/browser.min.js"></script>
+			<script src="/static/assets/js/breakpoints.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<script src="/static/assets/js/main.js"></script>
+
+
+	</body>
+</html>

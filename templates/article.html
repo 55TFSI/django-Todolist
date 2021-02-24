@@ -6,18 +6,21 @@
 -->
 <html>
 	<head>
-		<title>Generic - Solid State by HTML5 UP</title>
+		<title>Todo list</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="/static/assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="/static/assets/css/noscript.css" /></noscript>
+        <link href="https://cdn.rawgit.com/google/code-prettify/master/loader/skins/desert.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://picturebag.qiniudn.com/monokai.css">
 	</head>
-	<body class="is-preload">
 
+
+    <body class="is-preload">
 		<!-- Page Wrapper -->
 			<div id="page-wrapper">
-
 				<!-- Header -->
+						<!-- Header -->
 					<header id="header">
 						<h1><a href="index">Home</a>&nbsp;|&nbsp;
                         <a href="/user/list_categories">Categories</a>&nbsp;|&nbsp;
@@ -45,67 +48,31 @@
 						</div>
 					</nav>
 
+				<!-- Banner -->
+					<section id="banner">
+					</section>
+
 				<!-- Wrapper -->
 					<section id="wrapper">
-						<header>
+                        <header>
 							<div class="inner">
-								<h2>Generic</h2>
-								<p>Phasellus non pulvinar erat. Fusce tincidunt nisl eget ipsum.</p>
+								<h2>{{article.title}}</h2>
+                                <blockquote>{{article.description}}</blockquote>
 							</div>
 						</header>
 
-						<!-- Content -->
-                        <!-- show all categories of a user -->
-                        {% if type == "list_categories"%}
-							<div class="wrapper">
-								<div class="inner">
-                                    <h3 class="major">Buttons &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="add_categories" class="button small">Add a new category</a>
-                                    </h3>
-                                    <section class="features">
-                                        {% for categories in categories %}
-                                        <article>
-                                            <a href="#" class="image"> <img src= "{{MEDIA_URL}}{{categories.pic}}" /></a>
-                                            <h1 class="major">{{categories.name}}&nbsp;&nbsp;
-                                                <a href="/user/update_categories?category_id={{categories.id}}" class="fas fa-edit"></a>&nbsp;
-                                                <a href="/user/delete_categories?category_id={{categories.id}}" class="fas fa-trash-alt"></a>
-                                            </h1>
-                                        </article>
-                                        {% endfor %}
-                                    </section>
-								</div>
-							</div>
-                        {% endif %}
-
-                        <!-- show articles of a user -->
-                        {% if type == "list_articles"%}
-							<div class="wrapper">
-								<div class="inner">
-                                    <h3 class="major">Operations &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="add_articles" class="button small">Add a new article</a>
-                                    </h3>
-                                    <section class="features">
-                                        {% for article in Articles %}
-                                        <article>
-                                            <a href="#" class="image"> <img src= "{{MEDIA_URL}}{{article.thumbnail}}" /></a>
-                                            <h1 class="major">{{article.title}}&nbsp;&nbsp;
-                                                <a href="/user/update_categories?category_id={{article.id}}" class="fas fa-edit"></a>&nbsp;
-                                                <a href="/user/delete_categories?category_id={{article.id}}" class="fas fa-trash-alt"></a>
-                                            </h1>
-                                            <p>{{article.description}}</p>
-                                            <a href="/user/show_article_detail?id={{article.id}}" class="special">detail</a>
-                                        </article>
-                                        {% endfor %}
-                                    </section>
-
+                        <div class="wrapper">
+						<!-- article -->
+                            <div class="inner">
+                                <div class="inner">
+                                    <p>{{ article.content | safe }}</p>
                                 </div>
-							</div>
-                        {% endif %}
-
-					</section>
-
+                            </div>
+                        </div>
+                    </section>
 				<!-- Footer -->
-					<section id="footer">
+
+                <section id="footer">
 						<div class="inner">
 							<h2 class="major">Get in touch</h2>
 							<p>Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.</p>
@@ -145,9 +112,7 @@
 							</ul>
 						</div>
 					</section>
-
-			</div>
-
+            </div>
 		<!-- Scripts -->
 			<script src="/static/assets/js/jquery.min.js"></script>
 			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
@@ -155,6 +120,5 @@
 			<script src="/static/assets/js/breakpoints.min.js"></script>
 			<script src="/static/assets/js/util.js"></script>
 			<script src="/static/assets/js/main.js"></script>
-
-	</body>
+            </body>
 </html>

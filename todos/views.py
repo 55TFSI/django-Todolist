@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views import generic
 
+from user.models import Quote
 from .forms import Todo_add_form
 from .models import Todo, Category
 from django.http import HttpResponseRedirect, HttpResponse
@@ -30,8 +31,14 @@ def list_todo(request):
     #                ]
     context = {'all':[],'user':''}
     # get user id
-    u_id  = request.session.get('_auth_user_id')
+    u_id  = request.user.id
     u_name =request.user.username
+    #get quote
+    import  random
+    quote = Quote.objects.filter(user = request.user)
+    quote = random.choice(quote)
+    context.update({'quote':quote})
+
     # get categoies that user created
     user_categories = Category.objects.filter(user_id = u_id)
     context['user'] = u_name
