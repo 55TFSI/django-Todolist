@@ -7,10 +7,8 @@ from todos.models import Category, Category_delete
 from user.forms import Add_Category_Form, Update_Category_Form, Article_form
 from user.models import Article
 
-
-def home(request):
-    return render(request, 'index.html')
 def index(request):
+    user = request.user
     return render(request, 'userbase.html')
 
 def list_categories(request):
@@ -159,3 +157,50 @@ def add_articles(request):
             return render(request,'articleform.html',{'form':form,'error':error,'type':'add_articles'})
 
         return redirect('/user/list_articles')
+
+def update_articles(request):
+
+    if request.method == 'GET':
+        article_id = request.GET.get('article_id',None)
+        article = get_object_or_404(Article,pk =article_id)
+        update_articles.article = article
+
+        form = Article_form()
+        context = {'article':article,'form':form,'type':'update_article'}
+
+        # get user_created_categories and return a for users form to fill
+        return render(request, 'articleform.html', context)
+    else:
+
+        # get infos from form
+        form = Article_form(request.POST,request.FILES)
+
+        if form.is_valid():
+            article = update_articles.article
+            pic = request.FILES.get('thumbnail',None)
+            if not pic:
+                article.title = form.cleaned_data['title']
+                article.description  = form.cleaned_data['description']
+                article.content = form.cleaned_data['content']
+
+            else:
+                article.title = form.cleaned_data['title']
+                article.description = form.cleaned_data['description']
+                article.content = form.cleaned_data['content']
+                article.thumbnail = pic
+
+            article.save()
+
+        else:
+            article = update_articles.article
+            error = form.errors
+            return render(request, 'articleform.html', {'form': form, 'error': error, 'type': 'update_article','article':article})
+
+        return redirect('/user/list_articles')
+
+@login_required
+def delete_articles(request):
+    article_id = request.GET.get('article_id',None)
+    article = get_object_or_404(Article,pk = article_id)
+    article.delete()
+    return redirect('/user/list_articles')

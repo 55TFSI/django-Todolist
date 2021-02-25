@@ -70,6 +70,46 @@
                                         </form>
                                         {% endif %}
 
+                                        <!-- update form -->
+                                        {% if type == "update_article" %}
+										<h3 class="major">Update a article</h3>
+										<form action="/user/update_articles" method="POST" enctype="multipart/form-data">
+                                            <div class="row gtr-uniform">
+                                                {% csrf_token %}
+                                                {{ form.non_field_errors }}
+                                                <div class="col-6 col-12-xsmall">
+                                                <label for="title">title</label>
+                                                 <input type="text"  id="title" name="title" value="{{ article.title }}">
+                                                    {{ form.title.errors }}
+                                                </div>
+
+                                                <div class="col-6 col-12-xsmall">
+                                                <label for="description">description</label>
+                                                 <input type="text"  id="description" name="description" value="{{ article.description }}">
+                                                 {{ form.description.errors }}
+                                                </div>
+
+                                                <div class="col-6 col-12-xsmall">
+                                                {{ form.thumbnail.errors }}
+                                                <label for="{{ form.thumbnail.id_for_label }}">thumbnail:</label>
+                                                {{ form.thumbnail }}
+                                                </div>
+
+                                                <div class="col-6 col-12">
+                                                <label for="content">content</label>
+                                                <textarea content="1111"  id="content" rows="40">
+                                                {{article.content}}
+                                                </textarea>
+                                                {{form.content.errors}}
+                                                </div>
+                                                <div class="col-6 col-12-xsmall">
+                                                    <h3 class="major"></h3>
+                                                    <input type="submit" value="Update" class="primary" />
+                                                </div>
+                                            </div>
+                                        </form>
+                                        {% endif %}
+
 									</section>
 								</div>
 							</div>

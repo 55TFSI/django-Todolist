@@ -2266,6 +2266,7 @@ input, select, textarea {
 	input[type="password"],
 	input[type="email"],
 	input[type="tel"],
+	input[type="textarea1"],
 	select,
 	textarea {
 		-moz-appearance: none;
@@ -2288,6 +2289,7 @@ input, select, textarea {
 		input[type="password"]:invalid,
 		input[type="email"]:invalid,
 		input[type="tel"]:invalid,
+		input[type="textarea1"],
 		select:invalid,
 		textarea:invalid {
 			box-shadow: none;
