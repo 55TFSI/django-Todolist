@@ -88,11 +88,11 @@
                                         {% for article in Articles %}
                                         <article>
                                             <a href="#" class="image"> <img src= "{{MEDIA_URL}}{{article.thumbnail}}" /></a>
-                                            <h1 class="major">{{article.title}}&nbsp;&nbsp;
+                                            <h1 class="major" style="word-wrap:break-word">{{article.title}}&nbsp;&nbsp;
                                                 <a href="/user/update_articles?article_id={{article.id}}" class="fas fa-edit"></a>&nbsp;
                                                 <a href="/user/delete_articles?article_id={{article.id}}" class="fas fa-trash-alt"></a>
                                             </h1>
-                                            <p>{{article.description}}</p>
+                                            <p style="word-wrap:break-word">{{article.description}}</p>
                                             <a href="/user/show_article_detail?id={{article.id}}" class="special">detail</a>
                                         </article>
                                         {% endfor %}

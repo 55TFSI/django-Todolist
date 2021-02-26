@@ -1,6 +1,6 @@
 import sys
 
-from todos.models import User_Category, Todo
+from todos.models import Todo
 
 import  requests,pprint
 

@@ -63,9 +63,8 @@ def finish(request):
     u_id = request.session.get('_auth_user_id')
     # get title
     todo_id = request.GET.get('id',None)
-    #find atodo by id and user id (some of the user have same todolist e.g. getbath)
+    #find
     todo = get_object_or_404(Todo,id=todo_id,user_id = u_id)
-
     #update  the status to 1
     todo.isCompleted = 1
     todo.save()
@@ -83,29 +82,36 @@ def reverse_todo(request):
 
 @login_required
 def add_todo(request):
+    user = request.user
+
+    def getchoices(request):
+        r = [('', '----')]
+        u_id = user.id
+        for obj in Category.objects.filter(user_id=u_id):
+            r = r + [(obj.id, obj.name)]
+        return r
 
     if request.method == 'GET':
-        def getchoices(request):
-            r = [('', '----')]
-            u_id = request.session.get('_auth_user_id')
-            for obj in Category.objects.filter(user_id=u_id):
-                r = r + [(obj.id, obj.name)]
-            return r
-
         form = Todo_add_form()
         # get user_created_categories
         form.fields['category'].choices = getchoices(request)
         return render(request,'forms.html',{'form': form,'type':'add_todo'})
     else:
-        user_id = request.session.get('_auth_user_id')
-        is_completed = True if request.POST.get('is_completed',False) == '1' else False
-        title  = request.POST.get('title',None)
-        category_id = request.POST.get('category','Undfined')
-        category = Category.objects.get(id =category_id,user_id = user_id)
+        form = Todo_add_form(request.POST)
+        form.fields['category'].choices = getchoices(request)
+        if form.is_valid():
+            is_completed = True if form.cleaned_data['is_completed'] == '1' else False
+            title  = form.cleaned_data['title']
+            category_id = form.cleaned_data['category']
+            category = Category.objects.get(id =category_id, user = user)
 
-        Todo.objects.create(title = title, category = category, user_id = user_id, isCompleted =is_completed)
+            Todo.objects.create(title = title, category = category, user = user, isCompleted =is_completed)
 
-        return redirect('/todos/list_todo')
+            return redirect('/todos/list_todo')
+        else:
+            form.fields['category'].choices = getchoices(request)
+            error = form.errors
+            return render(request, 'forms.html', {'form': form, 'error': error, 'type': 'add_todo'})
 
 @login_required
 def delete_todo(request):

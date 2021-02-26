@@ -15,11 +15,12 @@ class Quote(models.Model):
     content = models.TextField()
     user = models.ForeignKey(User, to_field='id', on_delete = models.CASCADE)
 
+
 class Article(models.Model):
-    title = models.CharField(help_text='title', max_length=60)
-    description = models.CharField(help_text='description', max_length=300, blank=True)
+    title = models.CharField(help_text='title', max_length=30)
+    description = models.CharField(help_text='description', max_length=120, blank=True)
     thumbnail = ProcessedImageField(upload_to='articleimgs',
-                                    default='categorypics/pic01.jpg',
+                                    default='articleimgs/bg.jpg',
                                     processors=[ResizeToFill(506,295)]
                                     )
 

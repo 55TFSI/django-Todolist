@@ -6,11 +6,28 @@ from django.shortcuts import render, redirect, get_object_or_404
 from todos.models import Category, Category_delete
 from user.forms import Add_Category_Form, Update_Category_Form, Article_form
 from user.models import Article
+from pyecharts.charts import *
+from pyecharts.components import Table
+from pyecharts import options as opts
+from pyecharts.commons.utils import JsCode
+import random
+import datetime
+from pyecharts.globals import CurrentConfig
+CurrentConfig.ONLINE_HOST = "https://cdn.kesci.com/lib/pyecharts_assets/"
 
+
+
+'''
+@login_required
 def index(request):
+    # generate charts for a user
+    # get data
+    def
+
     user = request.user
     return render(request, 'userbase.html')
-
+'''
+@login_required
 def list_categories(request):
     # get user
     user = request.user
@@ -85,9 +102,6 @@ def update_categories(request):
 
         return redirect('/user/list_categories')
 
-
-
-
 @login_required
 def delete_categories(request):
     category_id = request.GET.get('category_id',None)
@@ -100,6 +114,7 @@ def delete_categories(request):
         category.delete()
 
     return redirect('/user/list_categories')
+
 
 @login_required
 def list_articles(request):
@@ -131,6 +146,8 @@ def show_article_detail(request):
 
 @login_required
 def add_articles(request):
+    user = request.user
+
     if request.method == 'GET':
         # return a form for user
         form = Article_form()
@@ -139,7 +156,6 @@ def add_articles(request):
     # post method from form html
 
     else:
-        user = request.user
         #get infos from form
         form = Article_form(request.POST,request.FILES)
 
@@ -148,6 +164,7 @@ def add_articles(request):
             thumbnail = request.FILES.get('thumbnail')
             description = form.cleaned_data['description']
             content = form.cleaned_data['content']
+
             if not thumbnail:
                 Article.objects.create(title=title,description=description,content =content,user= user).save()
             else:
@@ -200,6 +217,7 @@ def update_articles(request):
 
 @login_required
 def delete_articles(request):
+
     article_id = request.GET.get('article_id',None)
     article = get_object_or_404(Article,pk = article_id)
     article.delete()

@@ -32,6 +32,7 @@
 								<div class="inner">
                                     <section>
                                         <!-- form -->
+                                        <!-- add_todo -->
                                         {% if type == "add_todo" %}
 										<h3 class="major">Add a todo</h3>
 										<form action="/todos/add_todo" method="POST">
@@ -60,15 +61,15 @@
                                             </div>
                                         </form>
                                         {% endif %}
-
+                                        <!-- update_todo -->
                                         {% if type == "update_todo" %}
 										<h3 class="major">Update your todo</h3>
 										<form action="/todos/update_todo?" method="POST">
                                             <div class="row gtr-uniform">
                                                 {% csrf_token %}
-                                                {{ form.non_field_errors }}
+                                                {{ form.error.errors }}
                                                 <div class="col-6 col-12-xsmall">
-                                                {{ form.subject.errors }}
+                                                {{ form.title.errors }}
                                                 <label for="{{ form.title.id_for_label }}">title:</label>
                                                 {{ form.title }}
                                                 </div>
@@ -76,11 +77,14 @@
                                                 {{ form.non_field_errors }}
                                                 <label for="{{ form.is_completed.id_for_label }}">is completed?:</label>
                                                 {{ form.is_completed }}
+                                                {{ form.is_completed.errors }}
                                                 </div>
                                                 <div class="col-6 col-12-xsmall">
                                                 {{ form.non_field_errors.errors }}
                                                 <label for="{{ form.category.id_for_label }}">category:</label>
                                                 {{ form.category }}
+                                                {{ form.category.errors }}
+
                                                 </div>
                                                 <div class="col-6 col-12-xsmall">
                                                  <h3 class="major"></h3>
