@@ -10,7 +10,7 @@ wirte tec dinary
 
 ![2](screenshot/article.png)
 
-supports markdown 
+support markdown 
 
 ![3](screenshot/markdown.png)
 
