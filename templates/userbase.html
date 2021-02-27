@@ -11,6 +11,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="/static/assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="/static/assets/css/noscript.css" /></noscript>
+        {% if type == "user_analysis"%}
+        <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+        <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+        {% endif %}
 	</head>
 	<body class="is-preload">
 
@@ -55,6 +59,18 @@
 						</header>
 
 						<!-- Content -->
+                        <!-- show user anlysis -->
+                        {% if type == "user_analysis"%}
+                        <div class="wrapper">
+                                    <div class="inner" >
+                                    <span>
+                                    {% for chart in chart%}
+                                        {{ chart|safe }}
+                                    </span>
+                                    {% endfor %}
+                                    </div>
+                        </div>
+                        {% endif %}
                         <!-- show all categories of a user -->
                         {% if type == "list_categories"%}
 							<div class="wrapper">

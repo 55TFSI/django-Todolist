@@ -1,0 +1,52 @@
+TEST
+
+todos:
+    1.add todos
+        1 title none  √
+        2 category none  √
+        3 title oversized  √
+    2.update todos
+        1 title none  √
+        2 category none  √
+        3 title oversized √
+    3. delete todos    todo: add delete alert on html
+
+Categories:
+    1. add categories
+        1 name none √
+        2 pic none √   todo: pic can not none   when delete not delete the default file
+    2. update categories
+       1 name none √
+       2 pic
+                1 none : origenal pic  √
+                2 not none : new pic  √
+    3. delete categories  todo: delete alert
+        delete pic √
+        delete record √
+
+Articles:
+    1. add articles
+        1. title oversizeofcard (changeline) √
+        2. oversized of model and form √
+        3. content none √
+        4. thumnailnone show default if none  √
+        5. markdown code √
+        6. todo print tab in textarea dont skip to submit
+
+    2. update articles
+        1. show orignal √
+        2. title description oversized √
+        3. content none √
+
+    3. delete articles
+        1. delete record √
+        2. delete file × todo delete img when it is not default
+                         todo delete alert
+
+    4. todo add article_categories
+
+Quotes todo add delete update list
+
+user_analysis page todo usercenter page
+
+

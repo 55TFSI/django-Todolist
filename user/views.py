@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
-from todos.models import Category, Category_delete
+from todos.models import Category, Category_delete, Todo
 from user.forms import Add_Category_Form, Update_Category_Form, Article_form
 from user.models import Article
 from pyecharts.charts import *
@@ -12,21 +12,54 @@ from pyecharts import options as opts
 from pyecharts.commons.utils import JsCode
 import random
 import datetime
-from pyecharts.globals import CurrentConfig
+from pyecharts.globals import CurrentConfig, ThemeType
 CurrentConfig.ONLINE_HOST = "https://cdn.kesci.com/lib/pyecharts_assets/"
 
 
 
-'''
+
 @login_required
 def index(request):
+    # load js files
+    type = 'user_analysis'
+    user = request.user
     # generate charts for a user
     # get data
-    def
+    #[('category', numbers)]
+    word_cloud = []
+    word_cloud_todo = {}
 
-    user = request.user
-    return render(request, 'userbase.html')
-'''
+    todos = Todo.objects.filter(user = user)
+    for todo in todos:
+        if todo.title not in word_cloud_todo:
+            word_cloud_todo.update({todo.title:1})
+        else:
+            word_cloud_todo[todo.title] += 1
+
+    for key in word_cloud_todo.keys():
+        word_cloud.append((key,word_cloud_todo[key]))
+
+    category_num = []
+    todo_done = []
+    todo_notdone  = []
+    categories = Category.objects.filter(user = user)
+    for category in categories:
+        todo_done.append(len(category.todo_set.filter(isCompleted = 1)))
+        todo_notdone.append(len(category.todo_set.filter(isCompleted = 0)))
+        category_num.append(category.name)
+
+
+    bar = Bar(init_opts=opts.InitOpts(theme=ThemeType.DARK)
+    )\
+        .add_xaxis(category_num)\
+        .add_yaxis('done',todo_done)\
+        .add_yaxis('not yet',todo_notdone).\
+        set_global_opts(title_opts=opts.TitleOpts(title="Bar chart", subtitle="todos in your category"))
+    wc = WordCloud(init_opts=opts.InitOpts(theme=ThemeType.DARK)).add('', word_cloud)
+    context = {'type':type,'chart':[wc.render_embed(),bar.render_embed()]}
+
+    return render(request, 'userbase.html',context)
+
 @login_required
 def list_categories(request):
     # get user
