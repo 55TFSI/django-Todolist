@@ -1,15 +1,31 @@
 # django-Todolist
 This a simple web practice using HTML5/CSS + Django python + Sqlite.
 
-![1](screenshot/1.png)
 
 todos show as cards
 
-Todos:
-  1.  Add diary summary function for users
-  2.  Category update delete add (√)
-  3.  Add quotes for users(√)
-  4.  data analysis by time
+![1](screenshot/todo.png)
+
+wirte tec dinary 
+
+![2](article/todo.png)
+
+support markdown 
+
+![3](screenshot/markdown.png)
+
+weekly todo analysis
+
+![4](screenshot/wordcloud.png)
+
+![5](screenshot/bar.png)
+
+future:
+  1. travel dinary and map visualization
+  2. technique visualization
+  3. Pagination 
 
 
-templates: desined by https://html5up.net/
+
+templates: desined by https://html5up.net/  (html5/css)
+very useful design website
