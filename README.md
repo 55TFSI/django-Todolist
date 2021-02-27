@@ -12,7 +12,7 @@ wirte tec dinary
 
 support markdown 
 
-![3](screenshot/markdown.png)
+
 
 weekly todo analysis
 
