@@ -8,7 +8,7 @@ todos show as cards
 
 wirte tec dinary 
 
-![2](screenshot/todo.png)
+![2](screenshot/article.png)
 
 support markdown 
 
